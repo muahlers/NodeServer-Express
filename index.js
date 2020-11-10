@@ -6,8 +6,12 @@ app.get('/', (request, response) => {
   response.send("Hello World");
 });
 
-app.get('/test', (request, response) => {
-  response.send("Test");
+app.get('/status', (request, response) => {
+  response.status(200).json({ message: "ok", status: "200"});
+});
+
+app.post('/signup', (request, response) => {
+  response.status(200).json({ message: "ok", status: "200"});
 });
 
 app.listen(port, () => {
