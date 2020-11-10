@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/muahlers/NodeServer-Express/issues"
   },
-  "homepage": "https://github.com/muahlers/NodeServer-Express#readme"
+  "homepage": "https://github.com/muahlers/NodeServer-Express#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
