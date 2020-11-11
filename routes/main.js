@@ -2,6 +2,8 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
+const tokenList = {};
+
 // Creo una instancia de express para manejar rutas llamada Router.
 const router = express.Router();
 
@@ -39,10 +41,20 @@ router.post('/login', async (request, response, next) => {
           const token = jwt.sign({ user: body }, process.env.JWT_SECRET, { expiresIn: 86400 });
           const refreshToken = jwt.sign({ user: body }, process.env.JWT_REFRESH_SECRET, { expiresIn: 86400 });
 
-          // Put Tokens in a cookie
+          // Put Tokens in a cookie.
           response.cookie('jwt', token);
           response.cookie('refreshJwt', refreshToken);
 
+          // Store Tokens in memeory.
+          tokenList[refreshToken] = {
+            token,
+            refreshToken,
+            email: user.email,
+            _id: user._id,
+            name: uder.name
+          };
+
+          // send Token to the user.
           return response.status(200).json({ token, refreshToken, status: "200"});
       });
     } catch (err) {
