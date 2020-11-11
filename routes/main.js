@@ -12,12 +12,12 @@ router.get('/status', (request, response) => {
   response.status(200).json({ message: "ok", status: "200"});
 });
 
-router.post('/signup', passport.authenticate('signup', { session: false}),(request, response) => {
+router.post('/signup', passport.authenticate('signup', { session: false}), async (request, response, next) => {
   response.status(200).json({ message: "sign up was successful", status: "200"});
 });
 
-router.post('/login', (request, response, next) => {
-  passport.authenticate('login', (error, user) => {
+router.post('/login', async (request, response, next) => {
+  passport.authenticate('login', async (error, user) => {
     try {
       if (error) {
         return next(error);
