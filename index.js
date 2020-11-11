@@ -10,7 +10,7 @@ const routes = require('./routes/main');
 const passwordRoutes = require('./routes/password');
 
 // setup mongo connections
-const uri = process.env.MONGO_CONNECTION_URL;
+const uri = (process.env.MONGO_CONNECTION_URL) || (process.env.MONGO_CONNECTION_URL2) ;
 const mongoConfig = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
