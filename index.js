@@ -5,9 +5,12 @@ const bodyParser = require('body-parser'); // Requiro Paquetes Body Parser en no
 const cors = require('cors'); // Requiro Paquetes de Cors en node_modules
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const passport = require('passport');
 
+// routes
 const routes = require('./routes/main');
 const passwordRoutes = require('./routes/password');
+const secureRoutes = require('./routes/secure');
 
 // setup mongo connections
 const uri = process.env.MONGO_CONNECTION_URL ;
@@ -27,6 +30,7 @@ mongoose.connect(uri, mongoConfig);
 // if there is no connection to db we exit the app!
 mongoose.connection.on('error', (error) => {
   console.log(error);
+  console.log("Base de Datos no encontrada");
   process.exit(1);
 });
 
@@ -46,6 +50,7 @@ require('./auth/auth');
 // setup routes
 app.use('/', routes);
 app.use('/', passwordRoutes);
+app.use('/', passport.authenticate('jwt', { session: false}), secureRoutes);
 
 // Catch all other routes. Use() catch all that wasn't catch by the upper code.
 app.use((request, response) => {

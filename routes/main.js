@@ -37,8 +37,9 @@ router.post('/login', async (request, response, next) => {
             email: user.email,
             name: user.username
           };
+
           // Funcion para crea JWT token
-          const token = jwt.sign({ user: body }, process.env.JWT_SECRET, { expiresIn: 86400 });
+          const token = jwt.sign({ user: body }, process.env.JWT_SECRET, { expiresIn: 300 });
           const refreshToken = jwt.sign({ user: body }, process.env.JWT_REFRESH_SECRET, { expiresIn: 86400 });
 
           // Put Tokens in a cookie.
@@ -51,7 +52,7 @@ router.post('/login', async (request, response, next) => {
             refreshToken,
             email: user.email,
             _id: user._id,
-            name: uder.name
+            name: user.name
           };
 
           // send Token to the user.
@@ -65,19 +66,33 @@ router.post('/login', async (request, response, next) => {
 });
 
 router.post('/logout', (request, response) => {
-  if(!request.body) {
-    response.status(400).json({ message: "invalid body", status: "400"});
-  } else {
-        response.status(200).json({ message: "ok", status: "200"});
-  }
+  if(request.cookies) {
+    const refreshToken = request.cookies.refreshJwt;
+    if( refreshToken in tokenList) delete tokenList[refreshToken];
+    response.clearCookie('jwt');
+    response.clearCookie('refreshJwt');
+    }
+  response.status(200).json({ message: "logged out", status: "200"});
 });
 
 router.post('/token', (request, response) => {
-  if(!request.body || !request.body.refreshToken) {
-    response.status(400).json({ message: "invalid token", status: "400"});
+  const { refreshToken} = request.body; // const refreshToken = response.body.refreshToken.
+  if (refreshToken in tokenList) {
+    const body = {
+      email: tokenList[refreshToken].email,
+      _id: tokenList[refreshToken]._id,
+      name: tokenList[refreshToken].name
+    };
+    const token = jwt.sign({ user: body }, process.env.JWT_SECRET, { expiresIn: 300 });
+
+    // update jwt token
+    response.cookie('jwt', token);
+    tokenList[refreshToken].token = token;
+
+    response.status(200).json({ token, status: "200"});
+
   } else {
-        const { refreshToken} = request.body; // const refreshToken = response.body.refreshToken.
-        response.status(200).json({ message: `refresh token requested for token ${refreshToken}`, status: "200"});
+    response.status(401).json({ message: "unauthorized", status: "401"});
   }
 });
 
