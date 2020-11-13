@@ -48,6 +48,11 @@ app.use(cors({ credentials: true, origin: process.env.CORS_ORIGIN })); // Allow 
 // require  passport autho
 require('./auth/auth');
 
+// Game.html no quiero que sea publica sin un Token, la pongo antes de la carpeta public.
+app.get('/game.html', passport.authenticate('jwt', { session: false}),(request, response) =>{
+  response.status(200).json(request.user);
+});
+
 // Make folder public be aviable as public content
 app.use(express.static(__dirname + '/public'));
 

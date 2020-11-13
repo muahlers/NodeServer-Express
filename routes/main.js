@@ -66,15 +66,9 @@ router.post('/login', async (request, response, next) => {
   })(request, response, next);
 });
 
-router.post('/logout', (request, response) => {
-  if(request.cookies) {
-    const refreshToken = request.cookies.refreshJwt;
-    if( refreshToken in tokenList) delete tokenList[refreshToken];
-    response.clearCookie('jwt');
-    response.clearCookie('refreshJwt');
-    }
-  response.status(200).json({ message: "logged out", status: "200"});
-});
+router.route('/logout')
+  .get(processLogOutRequested)
+  .post(processLogOutRequested);
 
 router.post('/token', (request, response) => {
   const { refreshToken} = request.body; // const refreshToken = response.body.refreshToken.
@@ -96,5 +90,20 @@ router.post('/token', (request, response) => {
     response.status(401).json({ message: "unauthorized", status: "401"});
   }
 });
+
+function processLogOutRequested(request, response) {
+  if(request.cookies) {
+    const refreshToken = request.cookies.refreshJwt;
+    if( refreshToken in tokenList) delete tokenList[refreshToken];
+    response.clearCookie('jwt');
+    response.clearCookie('refreshJwt');
+    }
+    if( request.method === 'POST') {
+        response.status(200).json({ message: "logged out", status: "200"});
+    } else if (request.method === 'GET') {
+      response.sendFile('logout.html', { root: './public' });
+    }
+
+}
 
 module.exports = router;

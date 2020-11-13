@@ -48,7 +48,7 @@ passport.use('jwt', new JwtStrategy.Strategy({
     if (request && request.cookies) token = request.cookies.jwt;
     return token;
   }
-}, async(token, done) =>{
+}, async (token, done) =>{
   try {
     return done(null, token.user);
   } catch (error) {
