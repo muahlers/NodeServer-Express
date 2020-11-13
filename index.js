@@ -17,7 +17,8 @@ const uri = process.env.MONGO_CONNECTION_URL ;
 const mongoConfig = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useFindAndModify: false
 };
 if (process.env.MONGO_USER && process.env.MONGO_PASSWORD) {
   mongoConfig.auth = { authSource: 'admin'};
