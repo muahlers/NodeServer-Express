@@ -48,6 +48,9 @@ app.use(cors({ credentials: true, origin: process.env.CORS_ORIGIN })); // Allow 
 // require  passport autho
 require('./auth/auth');
 
+// Make folder public be aviable as public content
+app.use(express.static(__dirname + '/public'));
+
 // setup routes
 app.use('/', routes);
 app.use('/', passwordRoutes);

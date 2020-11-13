@@ -8,7 +8,8 @@ const tokenList = {};
 const router = express.Router();
 
 router.get('/', (request, response) => {
-  response.send("Hello World");
+  //response.send("Hello World");
+  response.send(__dirname + '/index.html');
 });
 
 router.get('/status', (request, response) => {
