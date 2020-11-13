@@ -7,3 +7,5 @@ No es reconocida como Funcion.
 Gamil no autoriza la cuenta de email.
 
 * Muchas Páginas me salen Unauthorize!
+
+* Problemas con Cookies en Login
