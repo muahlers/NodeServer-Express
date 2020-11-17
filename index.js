@@ -1,4 +1,5 @@
 // Variables en Archivo .env
+require('dotenv').config();
 
 import express from 'express'; // Requiro Paquetes Express en node_modules
 import bodyParser from 'body-parser'; // Requiro Paquetes Body Parser en node_modules
@@ -11,8 +12,6 @@ import passport from 'passport';
 import routes from './routes/main';
 import passwordRoutes from './routes/password';
 import secureRoutes from './routes/secure';
-
-require('dotenv').config();
 
 // setup mongo connections
 const uri = process.env.MONGO_CONNECTION_URL;
@@ -34,7 +33,7 @@ mongoose.connect(uri, mongoConfig);
 mongoose.connection.on('error', (error) => {
   console.log(error);
   console.log('Base de Datos no encontrada');
-  process.exit(1);
+  //process.exit(1);
 });
 
 // setup Express App
