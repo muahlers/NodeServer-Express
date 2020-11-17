@@ -60,9 +60,9 @@ app.get('/game.html', passport.authenticate('jwt', { session: false }), (request
 app.use(express.static(`${__dirname}/public`));
 
 // setup routes
-app.use('/', routes);
-app.use('/', passwordRoutes);
-app.use('/', passport.authenticate('jwt', { session: false }), secureRoutes);
+//app.use('/', routes);
+//app.use('/', passwordRoutes);
+//app.use('/', passport.authenticate('jwt', { session: false }), secureRoutes);
 
 // Catch all other routes. Use() catch all that wasn't catch by the upper code.
 app.use((request, response) => {
