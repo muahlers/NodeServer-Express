@@ -1,18 +1,18 @@
-const express = require('express');
+import express from 'express';
+
+import ChatModel from '../models/chatModel';
 // Creo una instancia de express para manejar rutas llamada Router.
 const router = express.Router();
 
-const ChatModel = require('../models/chatModel');
-
 router.post('/chat', async (request, response) => {
-  if(!request.body || !request.body.message) {
-    response.status(400).json({ message: "invalid message", status: "400" });
+  if (!request.body || !request.body.message) {
+    response.status(400).json({ message: 'invalid message', status: '400' });
   } else {
-        const { email } = request.user; // const email = response.body.email.
-        const { message} = request.body;
-        const chat = await ChatModel.create({ email, message });
-        response.status(200).json({ message: ' message sent!', status: "200" });
+    const { email } = request.user; // const email = response.body.email.
+    const { message } = request.body;
+    const chat = await ChatModel.create({ email, message });
+    response.status(200).json({ message: ' message sent!', status: '200' });
   }
 });
 
-module.exports = router;
+export default router;
