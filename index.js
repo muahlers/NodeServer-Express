@@ -70,7 +70,7 @@ app.use((request, response) => {
 });
 
 // If a Error Pop ups from another End Point this middlewaer catch it!
-app.use((error, request, response) => {
+app.use((error, request, response, next) => {
   console.log(error);
   response.status(error.status || 500).json({ error: error.message, status: '500' });
 });
