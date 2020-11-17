@@ -33,7 +33,11 @@ mongoose.connect(uri, mongoConfig);
 mongoose.connection.on('error', (error) => {
   console.log(error);
   console.log('Base de Datos no encontrada');
+<<<<<<< HEAD
   process.exit(1);
+=======
+  //process.exit(1);
+>>>>>>> 2b14667f77aefc733e8b7f843ea21dc59378d569
 });
 
 // setup Express App
@@ -51,6 +55,7 @@ app.use(cors({ credentials: true, origin: process.env.CORS_ORIGIN }));
 require('./auth/auth');
 
 // Game.html no quiero que sea publica sin un Token, la pongo antes de la carpeta public.
+<<<<<<< HEAD
 app.get('/game.html', passport.authenticate('jwt', { session: false }), (request, response) => {
   response.status(200).json(request.user);
 });
@@ -62,6 +67,19 @@ app.use(express.static(`${__dirname}/public`));
 app.use('/', routes);
 app.use('/', passwordRoutes);
 app.use('/', passport.authenticate('jwt', { session: false }), secureRoutes);
+=======
+//app.get('/game.html', passport.authenticate('jwt', { session: false }), (request, response) => {
+//  response.status(200).json(request.user);
+//});
+
+// Make folder public be aviable as public content
+//app.use(express.static(`${__dirname}/public`));
+
+// setup routes
+//app.use('/', routes);
+//app.use('/', passwordRoutes);
+//app.use('/', passport.authenticate('jwt', { session: false }), secureRoutes);
+>>>>>>> 2b14667f77aefc733e8b7f843ea21dc59378d569
 
 // Catch all other routes. Use() catch all that wasn't catch by the upper code.
 app.use((request, response) => {
