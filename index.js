@@ -1,8 +1,8 @@
-import express from 'express'; // Requiro Paquetes Express en node_modules
-import bodyParser from 'body-parser'; // Requiro Paquetes Body Parser en node_modules
-import cors from 'cors'; // Requiro Paquetes de Cors en node_modules
-import cookieParser from 'cookie-parser';
-import mongoose from 'mongoose';
+const express = require('express'); // Requiro Paquetes Express en node_modules
+const bodyParser = require('body-parser'); // Requiro Paquetes Body Parser en node_modules
+const cors = require('cors'); // Requiro Paquetes de Cors en node_modules
+const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
 /*
 import passport from 'passport';
 
