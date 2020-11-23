@@ -5,12 +5,12 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
 const passport = require('passport');
-
+/*
 // routes
 import routes from './routes/main';
 import passwordRoutes from './routes/password';
 import secureRoutes from './routes/secure';
-
+*/
 // Variables en Archivo .env
 require('dotenv').config();
 
@@ -58,7 +58,7 @@ app.get('/game.html', passport.authenticate('jwt', { session: false }), (request
 
 // Make folder public be aviable as public content
 app.use(express.static(`${__dirname}/public`));
-
+/*
 // setup routes
 app.use('/', routes);
 app.use('/', passwordRoutes);
@@ -67,15 +67,7 @@ app.use('/', passport.authenticate('jwt', { session: false }), secureRoutes);
 app.get('/game.html', passport.authenticate('jwt', { session: false }), (request, response) => {
   response.status(200).json(request.user);
 });
-
-// Make folder public be aviable as public content
-app.use(express.static(`${__dirname}/public`));
-
-// setup routes
-app.use('/', routes);
-app.use('/', passwordRoutes);
-app.use('/', passport.authenticate('jwt', { session: false }), secureRoutes);
-
+*/
 // Catch all other routes. Use() catch all that wasn't catch by the upper code.
 app.use((request, response) => {
   response.status(404).json({ message: '404 - Not Found', status: '404' });
