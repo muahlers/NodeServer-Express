@@ -3,14 +3,14 @@ const bodyParser = require('body-parser'); // Requiro Paquetes Body Parser en no
 const cors = require('cors'); // Requiro Paquetes de Cors en node_modules
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-/*
-import passport from 'passport';
+
+const passport = require('passport');
 
 // routes
 import routes from './routes/main';
 import passwordRoutes from './routes/password';
 import secureRoutes from './routes/secure';
-*/
+
 // Variables en Archivo .env
 require('dotenv').config();
 
@@ -47,7 +47,7 @@ app.use(bodyParser.json()); // parse application/json
 app.use(cookieParser());
 // Allow requests from other servers.
 app.use(cors({ credentials: true, origin: process.env.CORS_ORIGIN }));
-/*
+
 // require  passport autho
 require('./auth/auth');
 
@@ -81,7 +81,6 @@ app.use((request, response) => {
   response.status(404).json({ message: '404 - Not Found', status: '404' });
 });
 
-*/
 // If a Error Pop ups from another End Point this middlewaer catch it!
 app.use((error, request, response, next) => {
   console.log(error);
