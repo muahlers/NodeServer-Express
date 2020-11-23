@@ -5,9 +5,9 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 
-/*
 // routes
-import routes from './routes/main';
+const routes = require('./routes/main');
+/*
 import passwordRoutes from './routes/password';
 import secureRoutes from './routes/secure';
 */
@@ -55,12 +55,13 @@ require('./auth/auth');
 app.get('/game.html', passport.authenticate('jwt', { session: false }), (request, response) => {
   response.status(200).json(request.user);
 });
-/*
+
 // Make folder public be aviable as public content
 app.use(express.static(`${__dirname}/public`));
-/*
+
 // setup routes
 app.use('/', routes);
+/*
 app.use('/', passwordRoutes);
 app.use('/', passport.authenticate('jwt', { session: false }), secureRoutes);
 */
