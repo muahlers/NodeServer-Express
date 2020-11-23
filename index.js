@@ -7,10 +7,9 @@ const passport = require('passport');
 
 // routes
 const routes = require('./routes/main');
-/*
-import passwordRoutes from './routes/password';
-import secureRoutes from './routes/secure';
-*/
+const passwordRoutes = require('./routes/password');
+const secureRoutes = require('./routes/secure');
+
 // Variables en Archivo .env
 require('dotenv').config();
 
@@ -61,10 +60,9 @@ app.use(express.static(`${__dirname}/public`));
 
 // setup routes
 app.use('/', routes);
-/*
 app.use('/', passwordRoutes);
 app.use('/', passport.authenticate('jwt', { session: false }), secureRoutes);
-*/
+
 // Catch all other routes. Use() catch all that wasn't catch by the upper code.
 app.use((request, response) => {
   response.status(404).json({ message: '404 - Not Found', status: '404' });
